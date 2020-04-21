@@ -1,8 +1,10 @@
-# "Online Activism and Dyadic Representation" replciation files
+# "Online Activism and Dyadic Representation" replication files
 
 This archive includes the data and scripts necessary to reproduce all the empirical analyses in "Online Activism and Dyadic Representation: Evidence from the UK E-Petition System" by Jack Blumenau, Legislative Studies Quarterly (Forthcoming). A preprint of the paper can be found [here](https://www.jackblumenau.com/papers/petitions.pdf).
 
 All the analyses for the published version of the paper were completed in R version 3.6.2, using RStudio (version 1.2.5033), under macOS Sierra 10.12.6. The versions of various R packages are indicated in the scripts in which they are used. The machine used to calculate the timings of the various scripts (shown in 00_master.R) had a 3.8 Ghz processor, and 16 GB RAM.
+
+If you wish to recreate the analysis in the paper, you should begin by downloading this repository.
 
 ## Scripts
 
