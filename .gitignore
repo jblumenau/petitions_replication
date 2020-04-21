@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+working
+data
+latex
+tmp.txt
+.DS_Store
+out
+timings
