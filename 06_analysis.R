@@ -47,7 +47,7 @@ gam_model <- gam(y ~ s(x, k=10), family = "binomial")
 fitted_x_values <- seq(-1,20,0.1)
 fitted_y_values <- predict(gam_model, newdata = data.frame(x = fitted_x_values), type = "response")
 
-pdf("latex/figures/raw_data_participation.pdf",6,6)
+png("latex/figures/raw_data_participation.png", width = 6, height = 6, units = "in", res = 300)
 cex.size <- 1.5
 par(mar = c(5,5,2,2)+0.1, mfrow = c(1,1))
 plot(fitted_x_values, fitted_y_values, ylim = c(0,1), type = "l", lwd = 5, xlab = "Relative signature rate", ylab = "Probability of participation", pch = 19, bty ="n", cex.axis = cex.size, cex.lab = cex.size,xaxt = "n")
@@ -261,7 +261,7 @@ gamma_coefs$id <- 1:dim(gamma_coefs)[1]
 
 lims <- range(gamma_coefs[,1:5])*1.3
 
-pdf("latex/figures/second_level_slope_coefficients.pdf",7,6)
+png("latex/figures/second_level_slope_coefficients.png",width = 7, height = 6, units = "in", res = 300)
 par(mar = c(5,7,4,2)+0.1)
 plot(gamma_coefs$est, gamma_coefs$id, xlim = lims, pch = 19, bty = "n", yaxt = "n", ylab = "", xlab = "Logit coefficient", cex = 2, cex.axis = 1.5, cex.lab = 1.5, cex.main = 1.5)
 segments(x0 = gamma_coefs$lo90, x1= gamma_coefs$hi90, y0 = gamma_coefs$id, lwd = 4)
@@ -284,7 +284,7 @@ fitted_chain <- sapply(margin_values, function(x) exp(gamma_0_chain + gamma_marg
 
 ylims <- range(c(fitted_chain,0.8))
 
-pdf("latex/figures/sig_rate_odds_ratio_interaction.pdf",7,6, bg = "transparent")
+png("latex/figures/sig_rate_odds_ratio_interaction.png",width = 7, height = 6, units = "in", res = 300)
 par(mar = c(5,5,4,2)+0.1)
 plot(margin_values,fitted_chain[1,], col = "white", ylim = ylims, ylab = "Signature rate odds ratio", xlab = "2015 margin of victory", cex = 2, cex.axis = 1.5, cex.lab = 1.5, cex.main = 1.5, bty = "n")
 lines(margin_values, apply(fitted_chain,2,mean), lwd = 3)
