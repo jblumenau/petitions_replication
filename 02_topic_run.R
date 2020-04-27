@@ -11,7 +11,7 @@ rm(list=ls())
 # Load libraries
 
 library(data.table) # CRAN v1.12.2
-library(quanteda) # CRAN v1.5.1
+library(quanteda) # CRAN v1.3.4
 library(stm) # CRAN v1.3.3
 library(stargazer) # CRAN v5.2.2
 library(xtable) # CRAN v1.8-4
@@ -69,7 +69,7 @@ for(k in K){
 
 
 ### ################################################
-### TABLE AG: Closest matches for each petition debate in the non-petition debates
+### TABLE S6: Closest matches for each petition debate in the non-petition debates
 ### ################################################
 
 for(k in K){
@@ -128,7 +128,7 @@ for(k in K){
   closest_debates$`Petition Debate` <- paste0("\\textbf{",closest_debates$`Petition Debate`,"}")
   names(closest_debates) <- paste0("\\textbf{",names(closest_debates),"}")
   
-  sink(paste0("out/tables/closest_debates/",k,"_topics.tex"))
+  sink(paste0("latex/closest_debates/",k,"_topics.tex"))
   print(xtable(closest_debates, align = c("p{0\\textwidth}|","|p{0.4\\textwidth}|","p{0.6\\textwidth}|"), caption = "Closest matching debates", label = "tab:closest_matching_debates"), include.rownames = F, size = "scriptsize",sanitize.text.function = function(x) {
     x <- gsub('%', '\\\\%', x)
     x <- gsub('&', 'and', x)
@@ -138,3 +138,4 @@ sink()
 
 }
 
+print("FINISHED 02_topic_run.R")

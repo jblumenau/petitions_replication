@@ -29,9 +29,9 @@ load("data/debates_for_replication.Rdata")
 
 load("data/petitions_for_replication.Rdata")
 
-write(nrow(petitions_meta), file = "out/tables/useful_numbers/n_petitions.tex")
+write(nrow(petitions_meta), file = "latex/useful_numbers/n_petitions.tex")
 
-write(nrow(petitions_meta[petitions_meta$debate_location != "Commons Chamber",]), file = "out/tables/useful_numbers/n_petitions_wmin_hall.tex")
+write(nrow(petitions_meta[petitions_meta$debate_location != "Commons Chamber",]), file = "latex/useful_numbers/n_petitions_wmin_hall.tex")
 
 ## ##############
 # Combine petitions with the same url
@@ -80,8 +80,13 @@ pet_sigs$location <- debate_locations_by_id$V1[match(pet_sigs$petition_id, debat
 
 debates[,mId := as.factor(as.character(person_id)),] # Make mp_id a factor (required for the next step)
 
+tmp_debate_ids <- read.csv("data/debate_ids.csv")
+
+debates$subsection_id_new <- tmp_debate_ids$old_subsection_id_new[match(debates$subsection_id_new, tmp_debate_ids$new_subsection_id_new)]
+
 debates$dId <- debates$subsection_id_new
 
+debates <- debates[!is.na(debates$dId),]
 
 mp_by_debate <- debates[,list(mId = levels(mId), N = c(table(mId))), dId] # Find number of times each MP appears in each debate
 mp_by_debate$N <- as.numeric(mp_by_debate$N > 0)
@@ -234,8 +239,8 @@ setkey(petition_committee_out, mnis_id, start, end)
 setkey(mp_by_debate, debate_date, debate_date2)
 
 petition_committee_matches <- foverlaps(mp_by_debate, petition_committee_out[,c("mnis_id", "start", "end")], 
-                              by.x = c("mnis_person_id", "debate_date", "debate_date2"),
-                              by.y = c("mnis_id", "start", "end"), mult = "first", which = T)
+                                        by.x = c("mnis_person_id", "debate_date", "debate_date2"),
+                                        by.y = c("mnis_id", "start", "end"), mult = "first", which = T)
 
 mp_by_debate$petitions_committee <- F
 mp_by_debate$petitions_committee[!is.na(petition_committee_matches)] <- T
@@ -253,4 +258,4 @@ debates <- debates[debates$dId%in%unique(mp_by_debate$dId)]
 
 save(mp_by_debate, debates, file = "working/mp_by_debate.Rdata")
 
-
+print("FINISHED 01_data.prep.R")

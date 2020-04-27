@@ -372,7 +372,7 @@ summary {
 <p>If you wish to recreate the analysis in the paper, you should begin by downloading this repository.</p>
 <div id="scripts" class="section level2">
 <h2>Scripts</h2>
-<p>There are a number of scripts that need to be run in sequence in order to recreate the analyses. The 00_master.R script can be executed (in R) to run all the scripts in order, but be warned that it will take approximately XXX to complete everything.</p>
+<p>There are a number of scripts that need to be run in sequence in order to recreate the analyses. The 00_master.R script can be executed (in R) to run all the scripts in order, but be warned that it will take approximately 30 hours to complete everything.</p>
 <p>The master script will also create the necessary file structure to store the various outputs (plots, tables, etc) which link up to the latex file for the working paper. Even if you do not execute the master file in one go, I recommend running lines 1 to 24 of the master script before executing the other scripts so that you have the correct file structure on your local machine.</p>
 <ul>
 <li>00_master.R</li>
@@ -380,16 +380,24 @@ summary {
 <li>02_topic_run.R</li>
 <li>03_model_prep.R</li>
 <li>04_models_run.R</li>
+<li>05_models_run_MCMC.R</li>
+<li>06_analysis.R</li>
+<li>07_prep_approval.R</li>
+<li>08_approval_model_prep.R</li>
+<li>09_approval_run.R</li>
+<li>10_approval_analysis.R</li>
+<li>11_petition_analysis.R</li>
+<li>12_topic_analysis.R</li>
 <li>utils.R</li>
 </ul>
 </div>
 <div id="models" class="section level2">
 <h2>Models</h2>
-<p>In addition to the scripts that prepare the data and run the various models, there are also scripts used to define the various models used in the paper in Stan. These are all kept in the <code>/stancode</code> directory.</p>
+<p>In addition to the scripts that prepare the data and run the various models, there are also scripts used to define the various models used in the paper in Stan. These are all kept in the <code>/stancode</code> directory. These scripts are called by <code>03_model_prep.R</code> and <code>08_approval_model_prep.R</code>.</p>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
-<p>The code in this repository relies on a number of data files, which should be downloaded from XXX and saved in a directory entitled <code>/data</code>. The raw data files are compiled in <code>01_data_prep.R</code> and other places. The main two files at the core of the analysis are:</p>
+<p>The code in this repository relies on a number of data files, which are stored in a directory entitled <code>/data</code>. (If you are accessing this repository via GitHub, you will need to download the data files from the LSQ dataverse here) The raw data files are compiled in <code>01_data_prep.R</code> and other places. The main two files at the core of the analysis are:</p>
 <ul>
 <li><p><code>debates_for_replication.Rdata</code></p>
 <ul>
@@ -405,12 +413,16 @@ summary {
 </ul>
 <p>Other data files included:</p>
 <ul>
-<li><code>BES-2017-General-Election-results-file-v1.0.dta</code> – results from the 2015 and 2017 UK general election, as recorded by the <a href="https://www.britishelectionstudy.com/data-objects/linked-data/">British Election Study</a></li>
+<li><code>BES-2015-General-Election-results-file-v2.2.dta</code> and <code>BES-2017-General-Election-results-file-v1.0.dta</code> – results from the 2015 and 2017 UK general election, as recorded by the <a href="https://www.britishelectionstudy.com/data-objects/linked-data/">British Election Study</a></li>
 <li><code>constituency_votereg.csv</code> – constituency electorate totals, as recorded by the <a href="https://commonslibrary.parliament.uk/parliament-and-elections/elections-elections/uk-elections/constituency-data-electorates/">House of Commons Library</a></li>
 <li><code>frontbenchers.Rdata</code> – contains <code>ministers</code> and <code>shadow_ministers</code> which give information on the MPs who help positions in either government or opposition leadership roles. Data taken from the parliamentary <a href="http://data.parliament.uk/membersdataplatform/memberquery.aspx">Members’ Names Data Platform</a></li>
 <li><code>mps_start_end_for_replication.Rdata</code> – provides start and end dates for MPs’ tenure in the Commons. Data taken from the parliamentary <a href="http://data.parliament.uk/membersdataplatform/memberquery.aspx">Members’ Names Data Platform</a></li>
 <li><code>petition_committee_members.xml</code> – provides information of MPs who served on the parliamentary Petitions Committee. Data taken from the parliamentary <a href="http://data.parliament.uk/membersdataplatform/memberquery.aspx">Members’ Names Data Platform</a></li>
 <li><code>petition_to_twfy_mapping.csv</code> - manually constructed <code>csv</code> file which links petitions to their relevant debates</li>
+<li><code>/agreement_codings</code> - manually annotated petition speeches coded by two coders</li>
+<li><code>annual_income.csv</code>, <code>constituency_votereg.csv</code>, <code>population_2016.csv</code> include constituency-level information taken from the Office for National Statistics</li>
+<li><code>Hanretty-Constituency-Estimates.csv</code> – Chris Hanretty’s estimates of constituency-level 2016 EU referendum outcomes</li>
+<li><code>tweets_for_replication.Rdata</code> – Tweets sent by MPs during the study period, collected using the <code>twittR</code> app</li>
 </ul>
 </div>
 <div id="latex" class="section level2">

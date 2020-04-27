@@ -4,7 +4,10 @@
 .Ruserdata
 working
 data
-latex
+latex/closest_debates
+latex/tables
+latex/useful_numbers
+latex/figures
 tmp.txt
 .DS_Store
 out

@@ -65,3 +65,4 @@ save(simple_stan_model_approval,
      full_stan_model_approval,
      file = "working/saved_stan_models_approval.Rdata")
 
+print("FINISHED 03_model_prep.R")

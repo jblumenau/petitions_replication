@@ -27,7 +27,7 @@ runDoubleGamma <- TRUE
 
 ## Load data
 
-load("data/mp_by_debate.Rdata")
+load("working/mp_by_debate.Rdata")
 load("working/topicmodel/ldaOut_10.Rdata")
 load("working/saved_stan_models.Rdata")
 load("working/text_objects.Rdata")
@@ -241,7 +241,7 @@ if(calculateDIC){
   
   dic_files <- list.files("working/stanOut")
   dic_files <- dic_files[grep("stanOut",dic_files)]
-  
+  dic_files <- dic_files[!grepl("MCMC|constituency",dic_files)]
   d <- 1
   dic_out <- data.frame(matrix(NA, nrow = length(dic_files), ncol = 2))
   names(dic_out) <- c("Model", "DIC")
@@ -272,7 +272,7 @@ if(calculateDIC){
   dic_out <- dic_out[grep("full|alpha_delta", dic_out$Model),]
   levels(dic_out$Model)[levels(dic_out$Model)=="alpha_delta"] <- "Null"
   
-  pdf("out/figures/dic.pdf",6,5)
+  pdf("latex/figures/dic.pdf",6,5)
   par(mar = c(5,4,4,2)+0.1)
   plot(as.numeric(dic_out$Model), dic_out$DIC, xaxt = "n", pch = 19, xlab = "Topic model", ylab = "DIC")
   axis(1, at = as.numeric(dic_out$Model), gsub("full_","",as.character(dic_out$Model)), las=  2)
@@ -325,7 +325,7 @@ if(runNoParty){
 
 if(runDoubleGamma){
     
-    load("data/mp_by_debate.Rdata")
+    load("working/mp_by_debate.Rdata")
     load("working/saved_stan_models.Rdata")
     load("working/text_objects.Rdata")
     k <- 45
@@ -427,3 +427,4 @@ if(runDoubleGamma){
 }
 
 
+print("FINISHED 04_model_run.R")
